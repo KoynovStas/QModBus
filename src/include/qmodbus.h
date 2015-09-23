@@ -25,6 +25,8 @@ class QModBus : public QObject
 
         enum ModBusError
         {
+            CreateError,
+            ConnectionError,
 
             UnknownError = -1
         };
@@ -54,13 +56,15 @@ class QModBus : public QObject
         QModBus& operator=(const QModBus&);
 
 
+        modbus_t   *mb_ctx;
+        QMutex      mb_ctx_mutex;
+        const char *strerror;
+
+
         virtual modbus_t* create_ctx() = 0;
 
-        modbus_t *mb_ctx;
-        QMutex    mb_ctx_mutex;
-
-
-        const char *strerror;
+        void _connect();
+        void _disconnect();
 
 
 
