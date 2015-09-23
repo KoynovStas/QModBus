@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "qmodbus.h"
 
 
 
@@ -27,6 +28,8 @@ class MainWindow : public QMainWindow
     private:
 
         Ui::MainWindow *ui;
+
+        QModBus_TCP  mb;
 };
 
 
