@@ -52,6 +52,9 @@ class QModBus : public QObject
         void set_response_timeout(uint32_t sec, uint32_t usec);
         void get_response_timeout(uint32_t *sec, uint32_t *usec);
 
+        // blocking functions
+        virtual int read_regs(int addr, int num_regs, uint16_t *dest);
+
 
 
     signals:

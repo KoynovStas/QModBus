@@ -60,6 +60,15 @@ void QModBus::get_response_timeout(uint32_t *sec, uint32_t *usec)
 
 
 
+int QModBus::read_regs(int addr, int num_regs, uint16_t *dest)
+{
+    QMutexLocker locker(&mb_ctx_mutex);
+
+    return _read_regs(addr, num_regs, dest);
+}
+
+
+
 void QModBus::_connect()
 {
 
