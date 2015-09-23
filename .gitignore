@@ -41,6 +41,8 @@
 *.includes
 
 
+# It's QT project ignoring Makefile
+Makefile*
 
 
 # Files that we don't want to ignore
