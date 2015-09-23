@@ -22,12 +22,19 @@ QModBus::QModBus() :
     connect_done(false)
 {
     qRegisterMetaType<QModBus::ModBusError>("QModBus::ModBusError");
+
+    this->moveToThread(&thread);
+
+    thread.start();
 }
 
 
 
 QModBus::~QModBus()
 {
+    thread.quit();
+    thread.wait();
+
     _disconnect();
 }
 

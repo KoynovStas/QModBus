@@ -89,7 +89,8 @@ HEADERS  += mainwindow.h \
             $$INCLUDE_DIR/modbus/modbus-tcp.h \
             $$INCLUDE_DIR/modbus/modbus-version.h \
             $$INCLUDE_DIR/modbus/modbus.h \
-            $$INCLUDE_DIR/qmodbus.h
+            $$INCLUDE_DIR/qmodbus.h \
+            $$INCLUDE_DIR/qexecthread.h
 
 
 FORMS    += mainwindow.ui

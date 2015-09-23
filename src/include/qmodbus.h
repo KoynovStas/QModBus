@@ -8,7 +8,7 @@
 
 
 #include <modbus/modbus.h>
-
+#include "qexecthread.h"
 
 
 
@@ -103,7 +103,8 @@ class QModBus : public QObject
 
     private:
 
-        bool connect_done;
+        bool         connect_done;
+        QExecThread  thread;
 };
 
 
