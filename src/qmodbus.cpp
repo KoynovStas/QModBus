@@ -23,7 +23,7 @@ QModBus::QModBus() :
 
 QModBus::~QModBus()
 {
-
+    _disconnect();
 }
 
 
