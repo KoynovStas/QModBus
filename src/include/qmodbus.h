@@ -30,6 +30,7 @@ class QModBus : public QObject
             ConnectionError,
             SetSlaveError,
             ReadRegsError,
+            WriteRegError,
 
             UnknownError = -1
         };
@@ -89,6 +90,7 @@ class QModBus : public QObject
         int _test_mb_ctx();
 
         int _read_regs(int addr, int num_regs, uint16_t *dest);
+        int _write_reg(int addr, uint16_t value);
 
 
 
