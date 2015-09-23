@@ -12,6 +12,9 @@ QModBus::QModBus() :
 
     //protected
     mb_ctx(NULL),
+    slave(0),
+    response_timeout_sec(5),
+    response_timeout_usec(0),
     strerror(""),
 
     //private
