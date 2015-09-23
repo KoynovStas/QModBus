@@ -79,7 +79,8 @@ PRE_TARGETDEPS += copy_lib
 
 # Input
 SOURCES  += main.cpp \
-            mainwindow.cpp
+            mainwindow.cpp \
+            $$SOURCES_DIR/qmodbus.cpp
 
 
 
@@ -87,8 +88,8 @@ HEADERS  += mainwindow.h \
             $$INCLUDE_DIR/modbus/modbus-rtu.h \
             $$INCLUDE_DIR/modbus/modbus-tcp.h \
             $$INCLUDE_DIR/modbus/modbus-version.h \
-            $$INCLUDE_DIR/modbus/modbus.h
-
+            $$INCLUDE_DIR/modbus/modbus.h \
+            $$INCLUDE_DIR/qmodbus.h
 
 
 FORMS    += mainwindow.ui
