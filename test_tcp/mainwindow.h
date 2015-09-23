@@ -37,6 +37,8 @@ class MainWindow : public QMainWindow
         void response_to_read_regs(int status);
         void response_to_write_reg(int status);
 
+        void process_error(QModBus::ModBusError error);
+
 
 
     private:

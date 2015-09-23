@@ -163,3 +163,44 @@ void MainWindow::response_to_write_reg(int status)
         ui->log_plain_text_edit->appendPlainText(QString("Write done"));
     }
 }
+
+
+
+void MainWindow::process_error(QModBus::ModBusError error)
+{
+    //show error in Edit
+    ui->log_plain_text_edit->appendPlainText(QString("Error is: %1  strerror: ").arg(error));
+    ui->log_plain_text_edit->insertPlainText(QString::fromUtf8(mb.get_strerror()));
+
+
+    switch (error)
+    {
+
+        case QModBus::NoConnectionError:
+        case QModBus::CreateError:
+        case QModBus::ConnectionError:
+        {
+            ui->connect_button->setEnabled(true);
+            break;
+        }
+
+
+        case QModBus::ReadRegsError:
+        {
+            ui->rd_button->setEnabled(true);
+            break;
+        }
+
+
+        case QModBus::WriteRegError:
+        {
+            ui->wr_button->setEnabled(true);
+            break;
+        }
+
+
+        default:
+            break;
+    }
+
+}
