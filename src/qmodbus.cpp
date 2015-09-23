@@ -78,6 +78,15 @@ int QModBus::write_reg(int addr, uint16_t value)
 
 
 
+int QModBus::write_regs(int addr, int num_regs, const uint16_t *data)
+{
+    QMutexLocker locker(&mb_ctx_mutex);
+
+    return _write_regs(addr, num_regs, data);
+}
+
+
+
 void QModBus::_connect()
 {
 
