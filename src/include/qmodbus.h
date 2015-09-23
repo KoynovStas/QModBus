@@ -65,6 +65,24 @@ class QModBus : public QObject
         void disconnected();
         void error(QModBus::ModBusError error);
 
+        //signals for inner use
+        void run_connect();
+        void run_disconnect();
+
+
+
+    public slots:
+
+        virtual void connect();
+        virtual void disconnect();
+
+
+
+    protected slots:
+
+        void loc_connect();
+        void loc_disconnect();
+
 
 
     protected:

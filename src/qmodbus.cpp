@@ -94,6 +94,42 @@ int QModBus::write_regs(int addr, int num_regs, const uint16_t *data)
 
 
 
+void QModBus::connect()
+{
+    QObject::connect(this, SIGNAL(run_connect()), this, SLOT(loc_connect()), Qt::UniqueConnection);
+
+    emit run_connect();
+}
+
+
+
+void QModBus::disconnect()
+{
+    QObject::connect(this, SIGNAL(run_disconnect()), this, SLOT(loc_disconnect()), Qt::UniqueConnection);
+
+    emit run_disconnect();
+}
+
+
+
+void QModBus::loc_connect()
+{
+    QMutexLocker locker(&mb_ctx_mutex);
+
+    _connect();
+}
+
+
+
+void QModBus::loc_disconnect()
+{
+    QMutexLocker locker(&mb_ctx_mutex);
+
+    _disconnect();
+}
+
+
+
 void QModBus::_connect()
 {
 
