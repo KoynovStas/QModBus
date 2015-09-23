@@ -12,6 +12,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
 
+    QObject::connect(&mb,  SIGNAL(error(QModBus::ModBusError)),
+                     this, SLOT(process_error(QModBus::ModBusError)));
+
+
+
     QObject::connect(ui->connect_button, SIGNAL(clicked()),
                      this,  SLOT(connect_btn_clicked()));
 
