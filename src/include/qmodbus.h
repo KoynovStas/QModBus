@@ -31,6 +31,7 @@ class QModBus : public QObject
             SetSlaveError,
             ReadRegsError,
             WriteRegError,
+            WriteRegsError,
 
             UnknownError = -1
         };
@@ -91,6 +92,7 @@ class QModBus : public QObject
 
         int _read_regs(int addr, int num_regs, uint16_t *dest);
         int _write_reg(int addr, uint16_t value);
+        int _write_regs(int addr, int num_regs, const uint16_t *data);
 
 
 

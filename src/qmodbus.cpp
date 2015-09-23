@@ -223,6 +223,27 @@ int QModBus::_write_reg(int addr, uint16_t value)
 
 
 
+int QModBus::_write_regs(int addr, int num_regs, const uint16_t *data)
+{
+
+    if( _test_mb_ctx() != 0 )
+        return -1;
+
+
+    int ret = modbus_write_registers(mb_ctx, addr, num_regs, data);
+    if( ret == -1 )
+    {
+        strerror = modbus_strerror(errno);
+        emit error(QModBus::WriteRegsError);
+        return -1;
+    }
+
+
+    return ret; // return the number of written registers
+}
+
+
+
 
 
 //---------------------- QModBus_TCP ----------------------
