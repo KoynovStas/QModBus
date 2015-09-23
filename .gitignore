@@ -43,3 +43,5 @@
 
 # Files that we don't want to ignore
 !.gitignore
+
+!libmodbus/**/*.*
