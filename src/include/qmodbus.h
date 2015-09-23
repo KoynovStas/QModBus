@@ -35,7 +35,8 @@ class QModBus : public QObject
 
         virtual ~QModBus();
 
-        bool is_connected(){ return connect_done; }
+        bool        is_connected() { return connect_done; }
+        const char *get_strerror() { return strerror; }
 
 
 
@@ -50,6 +51,9 @@ class QModBus : public QObject
 
         modbus_t *mb_ctx;
         QMutex    mb_ctx_mutex;
+
+
+        const char *strerror;
 
 
 
