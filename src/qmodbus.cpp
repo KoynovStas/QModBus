@@ -1,4 +1,5 @@
 #include <errno.h>
+#include <QMutexLocker>
 
 #include "qmodbus.h"
 
@@ -24,6 +25,15 @@ QModBus::QModBus() :
 QModBus::~QModBus()
 {
     _disconnect();
+}
+
+
+
+void QModBus::set_slave(int new_slave)
+{
+    QMutexLocker locker(&mb_ctx_mutex);
+
+    _set_slave(new_slave);
 }
 
 
@@ -54,6 +64,10 @@ void QModBus::_connect()
 
     connect_done = true;
 
+
+    _set_slave(slave);
+
+
     emit connected(); //good job
 }
 
@@ -76,6 +90,24 @@ void QModBus::_disconnect()
         connect_done = false;
 
         emit disconnected();
+    }
+}
+
+
+
+void QModBus::_set_slave(int new_slave)
+{
+    slave = new_slave;
+
+
+    if( !is_connected() )
+        return;
+
+
+    if( modbus_set_slave(mb_ctx, slave) == -1 )
+    {
+        strerror = modbus_strerror(errno);
+        emit error(QModBus::SetSlaveError);
     }
 }
 

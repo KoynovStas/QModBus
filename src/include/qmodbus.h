@@ -27,6 +27,7 @@ class QModBus : public QObject
         {
             CreateError,
             ConnectionError,
+            SetSlaveError,
 
             UnknownError = -1
         };
@@ -39,6 +40,11 @@ class QModBus : public QObject
 
         bool        is_connected() { return connect_done; }
         const char *get_strerror() { return strerror; }
+
+
+        void set_slave(int new_slave);
+        int  get_slave() { return slave; }
+
 
 
     signals:
@@ -60,11 +66,14 @@ class QModBus : public QObject
         QMutex      mb_ctx_mutex;
         const char *strerror;
 
+        int         slave;
+
 
         virtual modbus_t* create_ctx() = 0;
 
         void _connect();
         void _disconnect();
+        void _set_slave(int new_slave);
 
 
 
