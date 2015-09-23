@@ -17,6 +17,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
 
+    QObject::connect(&mb,  SIGNAL(connected()),
+                     this, SLOT(change_status()));
+
+    QObject::connect(&mb,  SIGNAL(disconnected()),
+                     this, SLOT(change_status()));
+
+
+
     QObject::connect(ui->connect_button, SIGNAL(clicked()),
                      this,  SLOT(connect_btn_clicked()));
 
@@ -208,4 +216,24 @@ void MainWindow::process_error(QModBus::ModBusError error)
             break;
     }
 
+}
+
+
+
+void MainWindow::change_status()
+{
+
+    ui->connect_button->setEnabled(true);
+
+
+    if( mb.is_connected() )
+    {
+        ui->log_plain_text_edit->appendPlainText("------ connected ------");
+        ui->connect_button->setText("Disconnect");
+        return;
+    }
+
+
+    ui->log_plain_text_edit->appendPlainText("------ disconnected ------\n");
+    ui->connect_button->setText("Connect");
 }

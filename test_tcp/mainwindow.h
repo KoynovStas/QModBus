@@ -38,6 +38,7 @@ class MainWindow : public QMainWindow
         void response_to_write_reg(int status);
 
         void process_error(QModBus::ModBusError error);
+        void change_status();
 
 
 
