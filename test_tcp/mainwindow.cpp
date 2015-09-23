@@ -10,6 +10,30 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+
+    QObject::connect(ui->connect_button, SIGNAL(clicked()),
+                     this,  SLOT(connect_btn_clicked()));
+
+
+
+    //read button
+    QObject::connect(ui->rd_button, SIGNAL(clicked()),
+                     this, SLOT(read_regs()));
+
+
+    QObject::connect(&mb,  SIGNAL(response_to_read_regs(int)),
+                     this, SLOT(response_to_read_regs(int)));
+
+
+
+    //write button
+    QObject::connect(ui->wr_button, SIGNAL(clicked()),
+                     this, SLOT(write_reg()));
+
+
+    QObject::connect(&mb,  SIGNAL(response_to_write_reg(int)),
+                     this, SLOT(response_to_write_reg(int)));
 }
 
 
