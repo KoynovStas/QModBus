@@ -39,6 +39,13 @@ class QModBus : public QObject
         const char *get_strerror() { return strerror; }
 
 
+    signals:
+
+        void connected();
+        void disconnected();
+        void error(QModBus::ModBusError error);
+
+
 
     protected:
 
