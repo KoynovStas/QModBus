@@ -29,6 +29,7 @@ class QModBus : public QObject
             CreateError,
             ConnectionError,
             SetSlaveError,
+            ReadRegsError,
 
             UnknownError = -1
         };
@@ -86,6 +87,8 @@ class QModBus : public QObject
         void _get_response_timeout(uint32_t *sec, uint32_t *usec);
 
         int _test_mb_ctx();
+
+        int _read_regs(int addr, int num_regs, uint16_t *dest);
 
 
 

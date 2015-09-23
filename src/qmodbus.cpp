@@ -181,6 +181,27 @@ int QModBus::_test_mb_ctx()
 
 
 
+int QModBus::_read_regs(int addr, int num_regs, uint16_t *dest)
+{
+
+    if( _test_mb_ctx() != 0 )
+        return -1;
+
+
+    int ret = modbus_read_registers(mb_ctx, addr, num_regs, dest);
+    if(ret == -1)
+    {
+        strerror = modbus_strerror(errno);
+        emit error(QModBus::ReadRegsError);
+        return -1;
+    }
+
+
+    return ret; // return the number of read registers
+}
+
+
+
 
 
 //---------------------- QModBus_TCP ----------------------
