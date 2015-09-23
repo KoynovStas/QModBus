@@ -33,7 +33,9 @@ class QModBus : public QObject
 
     public:
 
-         virtual ~QModBus();
+        virtual ~QModBus();
+
+        bool is_connected(){ return connect_done; }
 
 
 
@@ -48,6 +50,12 @@ class QModBus : public QObject
 
         modbus_t *mb_ctx;
         QMutex    mb_ctx_mutex;
+
+
+
+    private:
+
+        bool connect_done;
 };
 
 

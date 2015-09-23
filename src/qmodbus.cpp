@@ -6,8 +6,10 @@
 
 
 QModBus::QModBus() :
-    QObject(NULL)
+    QObject(NULL),
 
+    //private
+    connect_done(false)
 {
     qRegisterMetaType<QModBus::ModBusError>("QModBus::ModBusError");
 }
