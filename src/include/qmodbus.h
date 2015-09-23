@@ -25,6 +25,7 @@ class QModBus : public QObject
 
         enum ModBusError
         {
+            NoConnectionError,
             CreateError,
             ConnectionError,
             SetSlaveError,
@@ -83,6 +84,8 @@ class QModBus : public QObject
 
         void _set_response_timeout(uint32_t sec, uint32_t usec);
         void _get_response_timeout(uint32_t *sec, uint32_t *usec);
+
+        int _test_mb_ctx();
 
 
 

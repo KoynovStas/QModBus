@@ -12,10 +12,11 @@ QModBus::QModBus() :
 
     //protected
     mb_ctx(NULL),
+    strerror(""),
     slave(0),
     response_timeout_sec(5),
     response_timeout_usec(0),
-    strerror(""),
+
 
     //private
     connect_done(false)
@@ -160,6 +161,22 @@ void QModBus::_get_response_timeout(uint32_t *sec, uint32_t *usec)
        *sec  = response_timeout_sec;
        *usec = response_timeout_usec;
     }
+}
+
+
+
+int QModBus::_test_mb_ctx()
+{
+
+    if( mb_ctx == NULL )
+    {
+        strerror = "No Connection";
+        emit error(QModBus::NoConnectionError);
+        return -1;
+    }
+
+
+    return 0; //good job  mb_ctx is valid
 }
 
 
