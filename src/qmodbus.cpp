@@ -8,6 +8,10 @@
 QModBus::QModBus() :
     QObject(NULL),
 
+    //protected
+    mb_ctx(NULL),
+    strerror(""),
+
     //private
     connect_done(false)
 {
