@@ -45,6 +45,9 @@ class QModBus : public QObject
         void set_slave(int new_slave);
         int  get_slave() { return slave; }
 
+        void set_response_timeout(uint32_t sec, uint32_t usec);
+        void get_response_timeout(uint32_t *sec, uint32_t *usec);
+
 
 
     signals:
@@ -67,13 +70,19 @@ class QModBus : public QObject
         const char *strerror;
 
         int         slave;
+        uint32_t    response_timeout_sec;
+        uint32_t    response_timeout_usec;
 
 
         virtual modbus_t* create_ctx() = 0;
 
         void _connect();
         void _disconnect();
+
         void _set_slave(int new_slave);
+
+        void _set_response_timeout(uint32_t sec, uint32_t usec);
+        void _get_response_timeout(uint32_t *sec, uint32_t *usec);
 
 
 

@@ -38,6 +38,24 @@ void QModBus::set_slave(int new_slave)
 
 
 
+void QModBus::set_response_timeout(uint32_t sec, uint32_t usec)
+{
+    QMutexLocker locker(&mb_ctx_mutex);
+
+    _set_response_timeout(sec, usec);
+}
+
+
+
+void QModBus::get_response_timeout(uint32_t *sec, uint32_t *usec)
+{
+    QMutexLocker locker(&mb_ctx_mutex);
+
+    _get_response_timeout(sec, usec);
+}
+
+
+
 void QModBus::_connect()
 {
 
@@ -54,6 +72,8 @@ void QModBus::_connect()
     }
 
 
+    //set timeout for modbus_connect function
+    _set_response_timeout(response_timeout_sec, response_timeout_usec);
 
     if( modbus_connect(mb_ctx) == -1 )
     {
@@ -66,6 +86,7 @@ void QModBus::_connect()
 
 
     _set_slave(slave);
+    _set_response_timeout(response_timeout_sec, response_timeout_usec);
 
 
     emit connected(); //good job
@@ -108,6 +129,33 @@ void QModBus::_set_slave(int new_slave)
     {
         strerror = modbus_strerror(errno);
         emit error(QModBus::SetSlaveError);
+    }
+}
+
+
+
+void QModBus::_set_response_timeout(uint32_t sec, uint32_t usec)
+{
+
+    response_timeout_sec  = sec;
+    response_timeout_usec = usec;
+
+
+    if( is_connected() )
+        modbus_set_response_timeout(mb_ctx, sec, usec);
+}
+
+
+
+void QModBus::_get_response_timeout(uint32_t *sec, uint32_t *usec)
+{
+
+    if( is_connected() )
+        modbus_get_response_timeout(mb_ctx, sec, usec);
+    else
+    {
+       *sec  = response_timeout_sec;
+       *usec = response_timeout_usec;
     }
 }
 
