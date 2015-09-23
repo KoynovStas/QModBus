@@ -65,7 +65,7 @@ enum ModBusError
 };
 ```
 
-More details see: **[qmodbus.h](.src/include/qmodbus.h)**
+More details see: **[qmodbus.h](./src/include/qmodbus.h)**
 
 
 ***
@@ -74,8 +74,8 @@ More details see: **[qmodbus.h](.src/include/qmodbus.h)**
 
 **To start working, perform the following steps:**
 
-1. You need to include **[qmodbus.h](.src/include/qmodbus.h)** file in your **.cpp** file.
-2. And add file **[qmodbus.cpp](.src/qmodbus.cpp)** to list of source files to compile (to qmake project file). (see an example)
+1. You need to include **[qmodbus.h](./src/include/qmodbus.h)** file in your **.cpp** file.
+2. And add file **[qmodbus.cpp](./src/qmodbus.cpp)** to list of source files to compile (to qmake project file). (see an example)
 
 
 ***
