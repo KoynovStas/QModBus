@@ -54,6 +54,7 @@ class QModBus : public QObject
 
         // blocking functions
         virtual int read_regs(int addr, int num_regs, uint16_t *dest);
+        virtual int write_reg(int addr, uint16_t value);
 
 
 
