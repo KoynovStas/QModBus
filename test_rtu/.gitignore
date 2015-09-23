@@ -1,0 +1,8 @@
+debug/*
+release/*
+
+
+ui_*.h
+
+# Files that we don't want to ignore
+!.gitignore
