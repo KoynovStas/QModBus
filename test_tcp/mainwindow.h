@@ -31,6 +31,12 @@ class MainWindow : public QMainWindow
         void connect_to_dev();
         void disconnect_from_dev();
 
+        void read_regs();
+        void write_reg();
+
+        void response_to_read_regs(int status);
+        void response_to_write_reg(int status);
+
 
 
     private:
