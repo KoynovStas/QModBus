@@ -5,6 +5,7 @@
 #include <QString>
 #include <QMutex>
 #include <QMetaType>
+#include <QEvent>
 
 
 #include <modbus/modbus.h>
@@ -41,6 +42,8 @@ class QModBus : public QObject
     public:
 
         virtual ~QModBus();
+
+        virtual bool event(QEvent *); //for fast delete
 
         bool        is_connected() { return connect_done; }
         const char *get_strerror() { return strerror; }

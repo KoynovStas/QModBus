@@ -2,6 +2,7 @@
 #include <QMutexLocker>
 
 #include "qmodbus.h"
+#include "asyncdeltask.h"
 
 
 
@@ -17,12 +18,12 @@ QModBus::QModBus() :
     response_timeout_sec(5),
     response_timeout_usec(0),
 
-
     //private
     connect_done(false)
 {
     qRegisterMetaType<QModBus::ModBusError>("QModBus::ModBusError");
     qRegisterMetaType<uint16_t>("uint16_t");
+
 
     this->moveToThread(&thread);
 
@@ -37,6 +38,24 @@ QModBus::~QModBus()
     thread.wait();
 
     _disconnect();
+}
+
+
+
+bool QModBus::event(QEvent *event)
+{
+
+    // if was call delete_later() method
+    // We use AsyncDelTask class to remove
+    // the object asynchronously and does not block the GUI thread
+    if( event->type() == QEvent::DeferredDelete )
+    {
+        AsyncDelTask::async_del(this);
+        return true;
+    }
+
+
+    return QObject::event(event);
 }
 
 
