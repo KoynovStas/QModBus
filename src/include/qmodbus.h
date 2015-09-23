@@ -52,11 +52,6 @@ class QModBus : public QObject
         void set_response_timeout(uint32_t sec, uint32_t usec);
         void get_response_timeout(uint32_t *sec, uint32_t *usec);
 
-        // blocking functions
-        virtual int read_regs(int addr, int num_regs, uint16_t *dest);
-        virtual int write_reg(int addr, uint16_t value);
-        virtual int write_regs(int addr, int num_regs, const uint16_t *data);
-
 
 
     signals:
@@ -65,9 +60,17 @@ class QModBus : public QObject
         void disconnected();
         void error(QModBus::ModBusError error);
 
+        void response_to_read_regs(int status);
+        void response_to_write_reg(int status);
+        void response_to_write_regs(int status);
+
+
         //signals for inner use
         void run_connect();
         void run_disconnect();
+        void run_read_regs(int addr, int num_regs, uint16_t *dest);
+        void run_write_reg(int addr, uint16_t value);
+        void run_write_regs(int addr, int num_regs, const uint16_t *data);
 
 
 
@@ -76,12 +79,20 @@ class QModBus : public QObject
         virtual void connect();
         virtual void disconnect();
 
+        virtual void read_regs(int addr, int num_regs, uint16_t *dest);
+        virtual void write_reg(int addr, uint16_t value);
+        virtual void write_regs(int addr, int num_regs, const uint16_t *data);
+
 
 
     protected slots:
 
-        void loc_connect();
-        void loc_disconnect();
+        void lock_connect();
+        void lock_disconnect();
+
+        void lock_read_regs(int addr, int num_regs, uint16_t *dest);
+        void lock_write_reg(int addr, uint16_t value);
+        void lock_write_regs(int addr, int num_regs, const uint16_t *data);
 
 
 

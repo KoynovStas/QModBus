@@ -22,6 +22,7 @@ QModBus::QModBus() :
     connect_done(false)
 {
     qRegisterMetaType<QModBus::ModBusError>("QModBus::ModBusError");
+    qRegisterMetaType<uint16_t>("uint16_t");
 
     this->moveToThread(&thread);
 
@@ -67,36 +68,9 @@ void QModBus::get_response_timeout(uint32_t *sec, uint32_t *usec)
 
 
 
-int QModBus::read_regs(int addr, int num_regs, uint16_t *dest)
-{
-    QMutexLocker locker(&mb_ctx_mutex);
-
-    return _read_regs(addr, num_regs, dest);
-}
-
-
-
-int QModBus::write_reg(int addr, uint16_t value)
-{
-    QMutexLocker locker(&mb_ctx_mutex);
-
-    return _write_reg(addr, value);
-}
-
-
-
-int QModBus::write_regs(int addr, int num_regs, const uint16_t *data)
-{
-    QMutexLocker locker(&mb_ctx_mutex);
-
-    return _write_regs(addr, num_regs, data);
-}
-
-
-
 void QModBus::connect()
 {
-    QObject::connect(this, SIGNAL(run_connect()), this, SLOT(loc_connect()), Qt::UniqueConnection);
+    QObject::connect(this, SIGNAL(run_connect()), this, SLOT(lock_connect()), Qt::UniqueConnection);
 
     emit run_connect();
 }
@@ -105,14 +79,47 @@ void QModBus::connect()
 
 void QModBus::disconnect()
 {
-    QObject::connect(this, SIGNAL(run_disconnect()), this, SLOT(loc_disconnect()), Qt::UniqueConnection);
+    QObject::connect(this, SIGNAL(run_disconnect()), this, SLOT(lock_disconnect()), Qt::UniqueConnection);
 
     emit run_disconnect();
 }
 
 
 
-void QModBus::loc_connect()
+void QModBus::read_regs(int addr, int num_regs, uint16_t *dest)
+{
+
+    QObject::connect(this, SIGNAL(run_read_regs(int, int, uint16_t*)),
+                     this, SLOT(lock_read_regs(int, int, uint16_t*)), Qt::UniqueConnection);
+
+    emit run_read_regs(addr, num_regs, dest);
+}
+
+
+
+void QModBus::write_reg(int addr, uint16_t value)
+{
+
+    QObject::connect(this, SIGNAL(run_write_reg(int, uint16_t)),
+                     this, SLOT(lock_write_reg(int, uint16_t)), Qt::UniqueConnection);
+
+    emit run_write_reg(addr, value);
+}
+
+
+
+void QModBus::write_regs(int addr, int num_regs, const uint16_t *data)
+{
+
+    QObject::connect(this, SIGNAL(run_write_regs(int, int, uint16_t*)),
+                     this, SLOT(lock_write_regs(int, int, const uint16_t*)), Qt::UniqueConnection);
+
+    emit run_write_regs(addr, num_regs, data);
+}
+
+
+
+void QModBus::lock_connect()
 {
     QMutexLocker locker(&mb_ctx_mutex);
 
@@ -121,11 +128,47 @@ void QModBus::loc_connect()
 
 
 
-void QModBus::loc_disconnect()
+void QModBus::lock_disconnect()
 {
     QMutexLocker locker(&mb_ctx_mutex);
 
     _disconnect();
+}
+
+
+
+void QModBus::lock_read_regs(int addr, int num_regs, uint16_t *dest)
+{
+    QMutexLocker locker(&mb_ctx_mutex);
+    int ret;
+
+    ret = _read_regs(addr, num_regs, dest);
+
+    emit response_to_read_regs(ret);
+}
+
+
+
+void QModBus::lock_write_reg(int addr, uint16_t value)
+{
+    QMutexLocker locker(&mb_ctx_mutex);
+    int ret;
+
+    ret = _write_reg(addr, value);
+
+    emit response_to_write_reg(ret);
+}
+
+
+
+void QModBus::lock_write_regs(int addr, int num_regs, const uint16_t *data)
+{
+    QMutexLocker locker(&mb_ctx_mutex);
+    int ret;
+
+    ret = _write_regs(addr, num_regs, data);
+
+    emit response_to_write_regs(ret);
 }
 
 
