@@ -64,9 +64,11 @@ win32: {
        }
 
 
+       LIBMODBUS_DIR ~= s,/,\\,g
+
        LIBS += -L$$LIBMODBUS_DIR -Wl,-rpath=. -lmodbus
 
-       copy_lib.commands =  cp  $$LIBMODBUS_DIR/libmodbus-5.dll  $$TARGETDIR
+       copy_lib.commands =  $$quote($$QMAKE_COPY  $$LIBMODBUS_DIR\\libmodbus-5.dll  .\\$$TARGETDIR)
 }
 
 
