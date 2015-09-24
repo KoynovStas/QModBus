@@ -87,9 +87,9 @@ More details see: **[qmodbus.h](./src/include/qmodbus.h)**
 
 
 ## Note:
-> In OS Linux Device for test_rtu is: **/dev/tty\***  default is: **/dev/ttyUSB0**
+> In OS Linux Device for test_rtu is: **/dev/tty***  default is: **/dev/ttyUSB0**
 
-> In OS Windows Device for test_rtu is: **\\\\.\COM\***
+> In OS Windows Device for test_rtu is: **\\\\.\COM***
 
 
 ***
