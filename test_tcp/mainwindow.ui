@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Test_RTU</string>
+   <string>Test_TCP</string>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
    <bool>false</bool>
