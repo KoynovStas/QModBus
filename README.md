@@ -82,8 +82,15 @@ More details see: **[qmodbus.h](./src/include/qmodbus.h)**
 <br/>
 ## Examples
 
-1. test_tcp - how to work with the class QModBus_TCP
-2. test_rtu - how to work with the class QModBus_RTU
+1. **[test_tcp](./test_tcp)** - how to work with the class QModBus_TCP
+
+![Test_TCP](./screenshots/Test_TCP.png)
+
+
+
+2. **[test_rtu](./test_rtu)** - how to work with the class QModBus_RTU
+
+![Test_RTU](./screenshots/Test_RTU.png)
 
 
 ## Note:
@@ -92,8 +99,21 @@ More details see: **[qmodbus.h](./src/include/qmodbus.h)**
 > In OS Windows Device for test_rtu is: **\\\\.\COM***
 
 
-***
+
+## Build tests
+
+```console
+qmake
+make
+```
+
+
 <br/>
 ## License
 
 [BSD](./LICENSE).
+
+
+
+## Copyright
+Copyright (C) 2015 Koynov Stas - skojnov@yandex.ru
