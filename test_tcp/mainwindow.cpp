@@ -153,6 +153,10 @@ void MainWindow::response_to_read_regs(int status)
 
     ui->rd_button->setEnabled(true);
 
+
+    ui->log_plain_text_edit->appendPlainText(QString("Read status: %1").arg(status));
+
+
     if( status <= 0 )
         return;
 
@@ -171,10 +175,7 @@ void MainWindow::response_to_write_reg(int status)
 {
     ui->wr_button->setEnabled(true);
 
-    if( status == 1 )
-    {
-        ui->log_plain_text_edit->appendPlainText(QString("Write done"));
-    }
+    ui->log_plain_text_edit->appendPlainText(QString("Write status: %1").arg(status));
 }
 
 

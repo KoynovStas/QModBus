@@ -166,7 +166,7 @@ void QModBus::write_reg(int addr, uint16_t value)
 void QModBus::write_regs(int addr, int num_regs, const uint16_t *data)
 {
 
-    QObject::connect(this, SIGNAL(run_write_regs(int, int, uint16_t*)),
+    QObject::connect(this, SIGNAL(run_write_regs(int, int, const uint16_t*)),
                      this, SLOT(lock_write_regs(int, int, const uint16_t*)), Qt::UniqueConnection);
 
     emit run_write_regs(addr, num_regs, data);
