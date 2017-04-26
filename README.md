@@ -69,7 +69,6 @@ More details see: **[qmodbus.h](./src/include/qmodbus.h)**
 
 
 ***
-<br/>
 ## Usage
 
 **To start working, perform the following steps:**
@@ -79,7 +78,6 @@ More details see: **[qmodbus.h](./src/include/qmodbus.h)**
 
 
 ***
-<br/>
 ## Examples
 
 1. **[test_tcp](./test_tcp)** - how to work with the class QModBus_TCP
@@ -108,10 +106,10 @@ make
 ```
 
 
-<br/>
+
 ## License
 
-[BSD](./LICENSE).
+[BSD-3-Clause](./LICENSE).
 
 
 
