@@ -6,6 +6,10 @@ QModBus is abstract C++ class for Qt. QModBus is wrapper over libmodbus for Qt.
 From this abstract class inherited two specific classes: **QModBus_TCP** and **QModBus_RTU**. 
 This class provides the opportunity to work with the library [(libmodbus ver 3.1.2)](http://www.libmodbus.org) in not blocking mode.
 
+### Note
+This class is **deprecated**. It was developed when Qt did not support the work with the ModBus protocol. 
+Now you should use the standard Qt interface to work with ModBus(Since Qt 5.8):[Qt Modbus](https://doc.qt.io/qt-5/qtmodbus-backends.html).
+
 
 
 **The class has the following public methods:**
